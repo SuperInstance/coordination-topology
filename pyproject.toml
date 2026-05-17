@@ -1,0 +1,11 @@
+[build-system]
+requires = ["setuptools>=64", "setuptools-scm>=8"]
+build-backend = "setuptools.backends._legacy:_Backend"
+
+[project]
+name = "coordination-topology"
+version = "0.1.0"
+description = "Online TE/entropy/IAT/Euler algorithms for multi-agent fleet coordination topology"
+readme = "README.md"
+requires-python = ">=3.10"
+license = {text = "MIT"}
