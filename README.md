@@ -73,3 +73,35 @@ feeds tiles through the algorithms, and publishes topology tiles every 30s.
 ```bash
 python3 room_integration.py
 ```
+
+
+## Self-Assembly — Component Combinations
+
+This is the data engine. Everything else reads from or writes to it.
+
+| Component | What it does | Depends on this? |
+|-----------|-------------|-----------------|
+| coordination-hierarchy | Ranks agents by TE | ✅ Yes (data source) |
+| topology-anomaly-detector | Detects coordination failures | ✅ Yes |
+| spreadsheet-cells | Simulates agents with TE-weighted edges | ✅ Yes |
+| fleet-tool-registry | Discovers all fleet tools | ❌ No (meta) |
+| llm-proxy | Language oracle for cells | ❌ No (optional) |
+
+### Example: Coordination Monitoring Stack
+```bash
+pip install coordination-topology topology-anomaly-detector
+# Runs: TE computation + real-time anomaly alerts
+```
+
+### Example: Self-Organizing Agent Fleet
+```bash
+pip install coordination-topology spreadsheet-cells coordination-hierarchy
+# Runs: TE computation + cell simulation + agent ranking
+```
+
+### Example: Full Fleet Intelligence
+```bash
+pip install coordination-topology spreadsheet-cells topology-anomaly-detector \
+            coordination-hierarchy plato-shell-bridge
+# Runs: everything — computation, simulation, alerts, hierarchy, tool loading
+```
