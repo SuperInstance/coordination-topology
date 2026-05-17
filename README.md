@@ -1,2 +1,51 @@
 # coordination-topology
-Online TE/entropy/IAT/Euler algorithms for multi-agent fleet coordination topology
+
+Online Transfer Entropy (TE), source entropy, inter-arrival time (IAT) autocorrelation, and Euler characteristic computation for multi-agent fleet coordination topology.
+
+## Dependencies
+
+none (standalone Python 3.10+)
+
+## Usage
+
+```python
+from coordination_topology import CoordinationState, running_transfer_entropy, running_iat_autocorrelation
+
+state = CoordinationState()
+
+# Ingest tiles as they arrive (streaming/online)
+for tile in plato_tiles:
+    source = tile["source"]
+    chain = tile["provenance"]["chain_size"]
+    ts = tile["provenance"]["timestamp"]
+    state.ingest(source, chain, ts)
+
+# Query topology at any point
+te = running_transfer_entropy(state)          # bits
+ent = running_source_entropy(state)           # bits
+iat = running_iat_autocorrelation(state)      # per-source dict
+euler = running_euler_characteristic(state)   # {V, E, chi}
+```
+
+## Metrics
+- **Source Interleaving Transfer Entropy (SI-TE)**: mutual information between consecutive source labels — >0.1 bits = structure confirmed
+- **Coordination Silence Decay (CSD-τ)**: lag-1 autocorrelation of inter-arrival times — negative = burst coordination
+- **Source-Chain Euler Characteristic (SC-χ)**: V−E of source trajectories in chain-space
+
+## Shell Loading
+
+```python
+from plato_shell_bridge import PlatoShell
+shell = PlatoShell("agent-shell")
+shell.load_tool("coordination-topology")
+```
+
+## Tests
+
+```bash
+python3 -m pytest tests/ -v
+```
+
+## License
+
+MIT — Part of the Cocapn Fleet Intelligence System
