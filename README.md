@@ -49,3 +49,27 @@ python3 -m pytest tests/ -v
 ## License
 
 MIT — Part of the Cocapn Fleet Intelligence System
+
+
+## Validation
+
+Validated against 34,390 real PLATO tiles from SuperInstance fleet:
+
+```
+TE = 1.74 bits (3,384× shuffled null model)
+Sources tracked: 54
+Euler characteristic: χ = 42 (V=175, E=133)
+```
+
+```bash
+python3 tile_replay.py
+```
+
+## PLATO Room
+
+The `room_integration.py` module connects to a live PLATO server at localhost:8847,
+feeds tiles through the algorithms, and publishes topology tiles every 30s.
+
+```bash
+python3 room_integration.py
+```
