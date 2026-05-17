@@ -82,7 +82,7 @@ def publish_tile(state, te, ent, euler, iat, null_te):
         payload = json.dumps({
             "domain": ROOM,
             "question": f"coordination tick at {time.time():.0f}",
-            "answer": json.dumps(tile),
+            "answer": json.dumps({"te": tile["si_te_bits"], "health": tile["coordination_health"], "sources": tile["active_sources"], "chi": tile["euler_characteristic"]}),
             "tags": ["coordination-history", "live"],
             "source": "oracle1",
             "confidence": 0.9
